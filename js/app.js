@@ -112,6 +112,7 @@ let Meter = function Meter($elm, config) {
 document.addEventListener("DOMContentLoaded", function() {
   let rpmMeter;
   let speedMeter;
+
   fetch('https://cursovaa.onrender.com/config')
     .then(response => response.json())
     .then(config => {
@@ -301,10 +302,10 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       gearMeter.classList.remove('redzone');
     }
-
+    if(speedMeter!==undefined&&rpmMeter!==undefined){
     speedMeter.setValue(speed);
     rpmMeter.setValue(rpm);
-
+}
   })();
 
 
