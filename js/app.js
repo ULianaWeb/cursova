@@ -111,6 +111,7 @@ let Meter = function Meter($elm, config) {
 
 document.addEventListener("DOMContentLoaded", function() {
   let rpmMeter;
+  let speedMeter;
   fetch('https://cursovaa.onrender.com/config')
     .then(response => response.json())
     .then(config => {
@@ -134,32 +135,19 @@ document.addEventListener("DOMContentLoaded", function() {
       needleFormat: function(v) { return Math.round(v / 100) * 100; },
       valueRed: 6500
     });
+    speedMeter = new Meter(document.querySelector(".meter--speed"), {
+      value: 203,
+      valueMin: 0,
+      valueMax: 220,
+      valueStep: 20,
+      valueUnit: "<span>Speed</span><div>Km/h</div>",
+      angleMin: 30,
+      angleMax: 330,
+      labelUnit: "Km/h",
+      labelFormat: function(v) { return Math.round(v); },
+      needleFormat: function(v) { return Math.round(v); }
+    });
   }
-
-  function refreshConfig() {
-    fetch('https://cursovaa.onrender.com/config')
-      .then(response => response.json())
-      .then(config => {
-        initializeMeters(config);
-        console.log("Configuration refreshed");
-      })
-      .catch(error => alert('Error refreshing configuration'))
-  }
-
-  document.getElementById('refreshConfigButton').addEventListener('click', refreshConfig);
-
-  let speedMeter = new Meter(document.querySelector(".meter--speed"), {
-    value: 203,
-    valueMin: 0,
-    valueMax: 220,
-    valueStep: 20,
-    valueUnit: "<span>Speed</span><div>Km/h</div>",
-    angleMin: 30,
-    angleMax: 330,
-    labelUnit: "Km/h",
-    labelFormat: function(v) { return Math.round(v); },
-    needleFormat: function(v) { return Math.round(v); }
-  });
 
   let gearMeter = document.querySelector('.meter--gear div');
 
@@ -314,8 +302,8 @@ document.addEventListener("DOMContentLoaded", function() {
       gearMeter.classList.remove('redzone');
     }
 
-    speedMeter?.setValue(speed);
-    rpmMeter?.setValue(rpm);
+    speedMeter.setValue(speed);
+    rpmMeter.setValue(rpm);
 
   })();
 
