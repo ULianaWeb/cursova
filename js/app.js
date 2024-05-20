@@ -314,8 +314,8 @@ document.addEventListener("DOMContentLoaded", function() {
       gearMeter.classList.remove('redzone');
     }
 
-    speedMeter.setValue(speed);
-    rpmMeter.setValue(rpm);
+    speedMeter?.setValue(speed);
+    rpmMeter?.setValue(rpm);
 
   })();
 
