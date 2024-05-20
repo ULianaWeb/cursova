@@ -1,4 +1,4 @@
-import '../styles.scss';
+import '../css/styles.scss';
 let Meter = function Meter($elm, config) {
 
   let $needle, $value;
