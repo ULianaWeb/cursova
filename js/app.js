@@ -111,7 +111,7 @@ let Meter = function Meter($elm, config) {
 
 document.addEventListener("DOMContentLoaded", function() {
   let rpmMeter;
-  fetch('http://localhost:8080/config')
+  fetch('https://cursovaa.onrender.com/config')
     .then(response => response.json())
     .then(config => {
       initializeMeters(config);
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function refreshConfig() {
-    fetch('http://localhost:8080/config')
+    fetch('https://cursovaa.onrender.com/config')
       .then(response => response.json())
       .then(config => {
         initializeMeters(config);
