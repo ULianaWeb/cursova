@@ -112,8 +112,7 @@ let Meter = function Meter($elm, config) {
 document.addEventListener("DOMContentLoaded", function() {
   let rpmMeter;
   let speedMeter;
-
-  fetch('https://cursovaa.onrender.com/config')
+  fetch('http://localhost:8080/config')
     .then(response => response.json())
     .then(config => {
       initializeMeters(config);
@@ -121,33 +120,45 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(error => {
       console.error('Error fetching configuration:', error);
     });
-
+  let first=0;
   function initializeMeters(config) {
+    if(first===0) {
+      console.log(first)
+      first++;
       rpmMeter = new Meter(document.querySelector(".meter--rpm"), {
-      value: 6.3,
-      valueMin: config.valueMin,
-      valueMax: config.valueMax,
-      valueStep: config.valueStep,
-      valueUnit: config.valueUnit,
-      angleMin: config.angleMin,
-      angleMax: config.angleMax,
-      labelUnit: config.labelUnit,
-      labelFormat: function(v) { return Math.round(v / 1000); },
-      needleFormat: function(v) { return Math.round(v / 100) * 100; },
-      valueRed: 6500
-    });
-    speedMeter = new Meter(document.querySelector(".meter--speed"), {
-      value: 203,
-      valueMin: 0,
-      valueMax: 220,
-      valueStep: 20,
-      valueUnit: "<span>Speed</span><div>Km/h</div>",
-      angleMin: 30,
-      angleMax: 330,
-      labelUnit: "Km/h",
-      labelFormat: function(v) { return Math.round(v); },
-      needleFormat: function(v) { return Math.round(v); }
-    });
+        value: 6.3,
+        valueMin: config.valueMin,
+        valueMax: config.valueMax,
+        valueStep: config.valueStep,
+        valueUnit: config.valueUnit,
+        angleMin: config.angleMin,
+        angleMax: config.angleMax,
+        labelUnit: config.labelUnit,
+        labelFormat: function (v) {
+          return Math.round(v / 1000);
+        },
+        needleFormat: function (v) {
+          return Math.round(v / 100) * 100;
+        },
+        valueRed: 6500
+      });
+      speedMeter = new Meter(document.querySelector(".meter--speed"), {
+        value: 203,
+        valueMin: 0,
+        valueMax: 220,
+        valueStep: 20,
+        valueUnit: "<span>Speed</span><div>Km/h</div>",
+        angleMin: 30,
+        angleMax: 330,
+        labelUnit: "Km/h",
+        labelFormat: function (v) {
+          return Math.round(v);
+        },
+        needleFormat: function (v) {
+          return Math.round(v);
+        }
+      });
+    }
   }
 
   let gearMeter = document.querySelector('.meter--gear div');
@@ -303,9 +314,9 @@ document.addEventListener("DOMContentLoaded", function() {
       gearMeter.classList.remove('redzone');
     }
     if(speedMeter!==undefined&&rpmMeter!==undefined){
-    speedMeter.setValue(speed);
-    rpmMeter.setValue(rpm);
-}
+      speedMeter.setValue(speed);
+      rpmMeter.setValue(rpm);
+    }
   })();
 
 
